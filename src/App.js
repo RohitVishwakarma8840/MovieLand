@@ -6,7 +6,7 @@ import './App.css';
 
 //  413e5983 api key 
 
-const API_URL='http://www.omdbapi.com/?i=tt3896198&apikey=413e5983';
+const API_URL='https://www.omdbapi.com/?i=tt3896198&apikey=413e5983';
 
 const movie1={
     "Title": "Spiderman and Grandma",
@@ -25,9 +25,6 @@ const App=()=>{
     const [searchTerm,setSearchTerm]=useState('');
 
 
-
-
-
 const SearchMovies=async(title)=>{
  const response=await fetch(`${API_URL}&s=${title}`);
  const data= await response.json();
@@ -40,7 +37,14 @@ useEffect(()=>{
  SearchMovies(`Spiderman`)
 },[]);
 
+const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+        SearchMovies(searchTerm);
 
+
+
+    }
+  };
 
 
 return (
@@ -52,6 +56,7 @@ return (
 
 <div className="search">
    <input
+   onKeyPress={handleKeyPress}
     placeholder="Search for Movies"
     value={searchTerm}
     onChange={(e)=>setSearchTerm(e.target.value)}
